@@ -10,6 +10,7 @@ let validateForm = () => {
     const emailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     let returnable;
 
+    // Checks if fields are empty
     if(fname=="" || time=="" || email==""){
         fnameField.style.borderColor = "red";
         timeField.style.borderColor = "red";
@@ -19,20 +20,19 @@ let validateForm = () => {
         returnable = false;
     }
     else {
+        // Not too long names
         if(fname.length>50){
             fnameField.style.borderColor = "red";
             alert("The name was too long!");
-            returnable = false;
-        }
-        else if(isNaN(fname)){
-            alert("Your name contains numbers!");
             returnable = false;
         }
         else{
             fnameField.style.borderColor = "green";
         }
 
+        // Check if the time is number
         if(!(isNaN(time))) {
+            // Number is higher than 0 and less than 168 (hours in a week)
             if(time<0 || time>168){
                 timeField.style.borderColor = "red";
                 alert("Your number was either less than 0 or more than 168!");
@@ -48,6 +48,7 @@ let validateForm = () => {
             returnable = false;
         }
 
+        // Check if email matches the right format
         if(!email.match(emailFormat)){
             emailField.style.borderColor = "red";
             alert("Your email is not in correct format!");
@@ -58,16 +59,16 @@ let validateForm = () => {
         }
     }
 
-    return returnable;
+    return returnable; //return true or false/ submit or not to submit the form
 }
 
 
 // Read More
-
 const more = document.querySelector(".readmore");
 const text = document.querySelector(".more-text");
 const space = document.querySelector(".userinput");
 
+// Listens on clicks
 more.addEventListener('click', () =>{
     space.classList.toggle("show-more");
 
@@ -84,6 +85,7 @@ more.addEventListener('click', () =>{
 
 
 // Slideshow
+
 let slideshow = (function () {
     let counter = 0,i,j,
         slides =  $("#slideshow .slide"),
@@ -106,24 +108,23 @@ let slideshow = (function () {
                     slides.eq(counter).fadeOut();
                     counter += 1;
                 }
-            }, 6000);
+            }, 6000); //6000ms time for change
         }
     };
 }());
 slideshow.startSlideshow();
 
 // TO DO list
-
 const button = document.getElementById("enter");
 const input = document.getElementById("todo-input");
 const ul = document.querySelector(".todo-things");
 let counter=0;
 
-function inputLength() {
-	return input.value.length;
+let inputLength = () => {
+	return input.value.length; //Gets lengths of the TODO thing
 }
 
-function createListElement() {
+let createListElement = () => {
     if(counter<5){
         let li = document.createElement("li");
         li.appendChild(document.createTextNode(input.value));
@@ -133,18 +134,47 @@ function createListElement() {
     }
 }
 
-function addListAfterClick() {
-	if (inputLength() > 0) {
+let addListAfterClick = () => {
+	if (inputLength() > 0) { //adds to list if TODO thing was not blank
 		createListElement();
 	}
 }
 
-function addListAfterKeypress(event) {
-	if (inputLength() > 0 && event.keyCode === 13) {
+let addListAfterKeypress = (event) => {
+	if (inputLength() > 0 && event.keyCode === 13) { //Works with ENTER button
 		createListElement();
 	}
 }
+button.addEventListener("click", addListAfterClick); //Works with button click
+input.addEventListener("keypress", addListAfterKeypress); //Works with ENTER press
 
-button.addEventListener("click", addListAfterClick);
 
-input.addEventListener("keypress", addListAfterKeypress);
+// Smooth scroll
+$("#btn1").click(() => { //first button scrolls to home
+    $('html, body').animate({
+        scrollTop: $("#home").offset().top
+    }, 700);
+});
+
+$("#btn2").click(() => { //second button scrolls to form
+    $('html, body').animate({
+        scrollTop: $("#userinput").offset().top
+    }, 500);
+});
+
+$("#btn3").click(() => { //third button scrolls to todo list
+    $('html, body').animate({
+        scrollTop: $("#todo-list").offset().top
+    }, 450);
+});
+
+
+// Dark mode toggle
+document.documentElement.setAttribute("color-mode", "light"); //Enables light theme
+const themeSwitcher = document.querySelector(".color-toggle"); //Button which changes the theme
+
+themeSwitcher.onclick = () => {
+    let currentTheme = document.documentElement.getAttribute("color-mode"); //gets current theme
+    let switchToTheme = currentTheme === "dark" ? "light" : "dark"; //if dark theme them change to light, else to dark
+    document.documentElement.setAttribute("color-mode", switchToTheme); //sets the theme
+};

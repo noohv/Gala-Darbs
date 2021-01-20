@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
+:root[color-mode="light"] {
+  --background: #ffffff;
+  --text: #000000;
+  --nav-color: rgba(21, 71, 52, 0.8);
+  --card: #ffffff;
+  --footer: rgb(27, 56, 11, 1);
+}
+
+:root[color-mode="dark"] {
+  --background: #121212;
+  --text: #ffffff;
+  --nav-color: rgba(8, 22, 17, 0.8);
+  --card:#202020;
+  --footer: #202020;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,8 +24,11 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  color: #333;
+  color: var(--text);
   line-height: 1.6;
+  background-color: var(--background);
+  min-width: 200px;
+  transition: all .2s ease-in-out;
 }
 
 ul {
@@ -36,19 +55,13 @@ img {
   width: 100%;
 }
 
-
-.hidden {
-  visibility: hidden;
-  height: 0;
-}
-
 .none{
   display: none;
 }
 
 /* Navbar */
-.navbar {
-  background-color: rgba(21, 71, 52, 0.8);
+#navbar {
+  background-color: var(--nav-color);
   color: #fff;
   height: 70px;
   position: fixed;
@@ -56,21 +69,38 @@ img {
   z-index: 100;
 }
 
-.navbar ul {
+#navbar ul {
   display: flex;
 }
 
-.navbar a {
+#navbar a {
   color: #fff;
   padding: 10px;
   margin: 0 5px;
 }
 
-.navbar a:hover {
+#navbar .color-toggle {
+  background-color: var(--text);
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 30px;
+  transition: all .2s ease-in-out;
+}
+
+#navbar .color-toggle:focus {
+  outline: none;
+}
+
+#navbar .color-toggle:hover{
+  transform: scale(1.1);
+}
+
+#navbar a:hover {
   border-bottom: 2px #fff solid;
 }
 
-.navbar .flex {
+#navbar .flex {
   justify-content: space-between;
 }
 
@@ -85,7 +115,7 @@ img {
   position: relative;
 }
 
-.showcase h1 {
+.showcase h2 {
   font-size: 50px;
   font-weight: bold;
   font-style: italic;
@@ -97,10 +127,9 @@ img {
 
 .showcase-text {
   animation: slideInFromLeft 1s ease-in;
+  font-size: 18px;
 }
 
-
-.showcase::before,
 .showcase::after {
   content: '';
   position: absolute;
@@ -108,38 +137,30 @@ img {
   bottom: -70px;
   right: 0;
   left: 0;
-  background: #fff;
+  background: var(--background);
+  transition: all .2s ease-in-out;
   transform: skewY(-3deg);
   -webkit-transform: skewY(-3deg);
   -moz-transform: skewY(-3deg);
   -ms-transform: skewY(-3deg);
+  z-index: 50;
 }
 
-.random {
-  height: 70vh;
-  padding-top: 10px;
-  color:white;
-}
-
-.random .banner {
-  background: url('./images/sunset.jpg');
-  background-position:center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
-
-/* Stats */
+/* User input */
 .userinput {
-  padding-top: 100px;
   height: 70vh;
   animation: slideInFromBottom 1s ease-in;
 }
 
+.userinput .container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  height: auto;
+  z-index: 100;
+}
+
 .show-more {
-  height:85vh;
+  height:auto;
 }
 
 .text-box {
@@ -147,11 +168,10 @@ img {
   text-align: justify;
 }
 
-
-.stats-heading {
-  max-width: 500px;
-  margin: auto;
+.idea-heading {
+  padding-top: 20px;
   font-weight: bold;
+  z-index: 51;
 }
 
 .userinput .grid h3 {
@@ -164,12 +184,18 @@ img {
 }
 
 .readmore {
-  background-color: white;
+  background-color: var(--background);
   height: 50px;
   width: 50px;
   border: none;
-  color: black;
+  color: var(--text);
   font-size: 50px;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.readmore:hover {
+  transform: scale(1.1);
 }
 
 .readmore:focus {
@@ -181,13 +207,9 @@ img {
 }
 
 input[type=submit] {
-  background-color: green;
-  border: none;
   height: 40px;
   width: 100px;
   margin: 5px auto;
-  color: #fff;
-  border-radius: 5px;
 }
 
 input[type=text] {
@@ -199,26 +221,31 @@ input[type=text] {
   font-size: 15px;
 }
 
-.photogallery {
+
+/* Slideshow section */
+#photogallery {
   padding-top: 30px;
   position: relative;
 }
 
-.photogallery .container {
+#photogallery .container {
   height: 100vh;
+  min-height: 300px;
   width: 100%;
   max-width: none;
   margin: 0;
   padding:0;
 }
-.photogallery::before {
+
+#photogallery::before {
   content: '';
   position: absolute;
   height: 120px;
   top: -60px;
   right: 0;
   left: 0;
-  background: #fff;
+  transition: all .2s ease-in-out;
+  background: var(--background);
   transform: skewY(-3deg);
   -webkit-transform: skewY(-3deg);
   -moz-transform: skewY(-3deg);
@@ -226,9 +253,8 @@ input[type=text] {
   z-index: 50;
 }
 
-/* Slideshow */
 #slideshow {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -241,57 +267,72 @@ input[type=text] {
   top: 0;
 }
 
-.footer {
-  background-color: rgba(21, 71, 52, 0.8);
+
+/* TODO section */
+#todo-list {
+  min-height: 40vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  height: auto;
+}
+
+#todo-list .container>div:first-of-type h2 {
+  font-size: 25px;
+}
+
+#todo-list .grid h2 {
+  font-size: 35px;
+}
+
+#todo-list .grid p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.todo-heading {
+  max-width: 500px;
+  margin: auto;
+  font-weight: bold;
+  text-align: center;
+}
+
+.todo-things {
+  padding-left: 20px;
+}
+
+
+/* Footer */
+#footer {
+  background-color: var(--footer);
   height: 150px;
   color:#fff;
   padding-top: 10px;
-}
-
-
-#todo-list {
   height: auto;
 }
-/* ------------------------------------------------------- */
-/* Animations */
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-  }
 
-  100% {
-    transform: translateX(0);
-  }
+#footer .container {
+  padding: 20px;
 }
 
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
+#footer .flex {
+  justify-content: space-between;
 }
 
-@keyframes slideInFromTop {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
+#footer a{
+  color: white;
+  font-weight: bold;
+}
+#footer .social-icons a{
+font-size: 30px;
+padding: 10px;
 }
 
-@keyframes slideInFromBottom {
-  0% {
-    transform: translateY(100%);
-  }
 
-  100% {
-    transform: translateX(0);
-  }
+/* For the slideshow */
+@media (max-width: 1280px) {
+  #photogallery .container {
+    height: 70vh;
+  } 
 }
 
 /* Tablets and under */
@@ -299,50 +340,90 @@ input[type=text] {
   .grid,
   .showcase .grid,
   .userinput .grid,
-  .random .grid {
+  #todo-list .grid {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
-  .random {
-    margin-top: 40px;
+
+  #navbar .logo {
+    font-size: 20px;
   }
+
   .showcase {
     height: 50vh;
   }
+
   .userinput {
     height: auto;
   }
+
+  .showcase h2 {
+    font-size: 40px;
+  }
+
   .showcase-text {
     text-align: center;
     margin-top: 40px;
+    font-size: 15px;
     animation: slideInFromTop 1s ease-in;
+  }
+
+  #photogallery .container {
+    height: 50vh;
+  }
+
+  #footer .flex {
+    flex-direction: column;
+  }
+
+  #footer .container:nth-child(1) {
+    text-align: center;
+  }
+
+  .todo-list {
+    text-align: center;
   }
 }
 
 /* Mobile */
 @media (max-width: 500px) {
-  .navbar {
+  #navbar {
     height: auto;
     overflow: hidden;
   }
 
-  .navbar .flex {
+  #navbar .flex {
     flex-direction: column;
   }
 
-  .navbar ul {
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.1);
+  #navbar ul {
+    padding: 10px;
   }  
-  
-  .showcase h1 {
-    font-size: 30px;
-  }
-  .navbar ul:hover {
+
+  #navbar ul:hover {
     overflow: hidden;
   }
+
+  .showcase h2 {
+    font-size: 30px;
+  }
+
+  .showcase-text {
+    font-size: 12px;
+    animation: slideInFromTop 1s ease-in;
+  }
+
+  .readmore {
+    text-align: center;
+  }
+
+  #photogallery .container {
+    height: 30vh;
+  } 
 }
 
+
+/* Used many times */
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -366,11 +447,27 @@ input[type=text] {
 }
 
 .card {
-  background-color: #fff;
-  color: #333;
+  background-color: var(--card);
+  color: var(--text);
   border-radius: 10px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
   margin-bottom: 90px;
   margin-top: 20px;
+  z-index: 70;
+}
+
+.btn {
+  background-color: green;
+  border: none;
+  height: 35px;
+  width: 50px;
+  margin: 5px auto;
+  color: #fff;
+  border-radius: 5px;
+  transition: all .2s ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.1) ;
 }
