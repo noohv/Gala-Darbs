@@ -8,24 +8,31 @@ let validateForm = () => {
     const fname = document.forms["myForm"]["fname"].value;
     const time = document.forms["myForm"]["time"].value;
     const emailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const nameFormat = /^[a-zA-Z ]+$/;
     let returnable;
 
     // Checks if fields are empty
     if(fname=="" || time=="" || email==""){
-        fnameField.style.borderColor = "red";
-        timeField.style.borderColor = "red";
-        emailField.style.borderColor = "red";
+        fnameField.classList.add("incorrect");
+        timeField.classList.add("incorrect");
+        emailField.classList.add("incorrect");
 
         returnable = false;
     }
     else {
         // Not too long names
         if(fname.length>50){
-            fnameField.style.borderColor = "red";
+            fnameField.classList.add("incorrect");
             returnable = false;
         }
+        else if(!fname.match(nameFormat)){
+            fnameField.classList.add("incorrect");
+            console.log("got here");
+            returnable = false;           
+        }
         else{
-            fnameField.style.borderColor = "green";
+            fnameField.classList.remove("incorrect");
+            fnameField.classList.add("correct");
         }
 
         // Check if the time is number
@@ -36,11 +43,13 @@ let validateForm = () => {
                 returnable = false;
             }
             else{
-                timeField.style.borderColor = "green";
+                timeField.classList.remove("incorrect");
+                timeField.classList.add("correct");
             }
         }
         else{
-            timeField.style.borderColor = "red";
+            timeField.classList.remove("correct");
+            timeField.classList.add("incorrect");
             returnable = false;
         }
 
@@ -172,4 +181,14 @@ themeSwitcher.onclick = () => {
     let currentTheme = document.documentElement.getAttribute("color-mode"); //gets current theme
     let switchToTheme = currentTheme === "dark" ? "light" : "dark"; //if dark theme them change to light, else to dark
     document.documentElement.setAttribute("color-mode", switchToTheme); //sets the theme
+    localStorage.setItem("color-mode", switchToTheme);
 };
+
+let themePreference = addEventListener("load", () => {
+    if(localStorage.getItem("color-mode") === "dark") {
+        document.documentElement.setAttribute("color-mode", "dark");       
+    }
+    else {
+        document.documentElement.setAttribute("color-mode", "light");
+    }
+});

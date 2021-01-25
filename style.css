@@ -6,6 +6,7 @@
   --nav-color: rgba(21, 71, 52, 0.8);
   --card: #ffffff;
   --footer: rgb(27, 56, 11, 1);
+  --input:#e9e9e9;
 }
 
 :root[color-mode="dark"] {
@@ -14,6 +15,7 @@
   --nav-color: rgba(8, 22, 17, 0.8);
   --card:#202020;
   --footer: #202020;
+  --input:#1a1919;
 }
 
 * {
@@ -126,7 +128,6 @@ img {
 }
 
 .showcase-text {
-  animation: slideInFromLeft 1s ease-in;
   font-size: 18px;
 }
 
@@ -149,7 +150,6 @@ img {
 /* User input */
 .userinput {
   height: 70vh;
-  animation: slideInFromBottom 1s ease-in;
 }
 
 .userinput .container {
@@ -210,17 +210,38 @@ input[type=submit] {
   height: 40px;
   width: 100px;
   margin: 5px auto;
+  width: 100%;
 }
 
 input[type=text] {
-  height: 40px;
-  border-style: solid;
+  height: 50px;
+  width: 60%;
+  background-color: var(--input);
   border-radius: 5px;
-  margin:auto 8px;
+  margin: 10px 5px;
   padding: 5px 10px;
   font-size: 15px;
+  color: var(--text);
 }
 
+input[type=text], input[type=submit]:focus {
+  outline: none;
+}
+
+
+.nothing {
+  border:1px solid var(--input);
+}
+
+.correct {
+  border-style: solid;
+  border-color: green;
+}
+
+.incorrect {
+  border-style: solid;
+  border-color: red;
+}
 
 /* Slideshow section */
 #photogallery {
@@ -469,5 +490,5 @@ padding: 10px;
 }
 
 .btn:hover {
-  transform: scale(1.1) ;
+  transform: scale(1.02) ;
 }
