@@ -15,7 +15,6 @@ let validateForm = () => {
         fnameField.style.borderColor = "red";
         timeField.style.borderColor = "red";
         emailField.style.borderColor = "red";
-        alert("You must fill out all the fields!");
 
         returnable = false;
     }
@@ -23,7 +22,6 @@ let validateForm = () => {
         // Not too long names
         if(fname.length>50){
             fnameField.style.borderColor = "red";
-            alert("The name was too long!");
             returnable = false;
         }
         else{
@@ -35,7 +33,6 @@ let validateForm = () => {
             // Number is higher than 0 and less than 168 (hours in a week)
             if(time<0 || time>168){
                 timeField.style.borderColor = "red";
-                alert("Your number was either less than 0 or more than 168!");
                 returnable = false;
             }
             else{
@@ -44,14 +41,12 @@ let validateForm = () => {
         }
         else{
             timeField.style.borderColor = "red";
-            alert("You didnt enter a number!");
             returnable = false;
         }
 
         // Check if email matches the right format
         if(!email.match(emailFormat)){
             emailField.style.borderColor = "red";
-            alert("Your email is not in correct format!");
             returnable = false;
         }
         else{
